@@ -9,7 +9,7 @@ namespace: kensinfield
 name: snapshot_report
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.0.0
+version: 1.0.1
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -49,7 +49,7 @@ tags:
 #dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/nttmcp/snapshot_automation
+repository: https://github.com/nttmcp/snapshot_report_ansible_collection
 
 # The URL to any online docs
 documentation: https://docs.mcp-services.net/display/CCD/MCP+2.0
@@ -58,4 +58,4 @@ documentation: https://docs.mcp-services.net/display/CCD/MCP+2.0
 #homepage: http://example.com
 
 # The URL to the collection issue tracker
-issues: https://github.com/nttmcp/snapshot_automation/issues
+issues: https://github.com/nttmcp/snapshot_report_ansible_collection/issues

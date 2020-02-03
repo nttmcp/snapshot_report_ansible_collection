@@ -24,6 +24,7 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.nttmcp.mcp.plugins.module_utils.utils import get_credentials, get_regions
 from ansible_collections.nttmcp.mcp.plugins.module_utils.provider import NTTMCPClient, NTTMCPAPIException
 from jinja2 import Environment, FileSystemLoader
+import os
 
 # Python3 workaround for unicode function so the same code can be used with ipaddress later
 try:
@@ -123,8 +124,8 @@ def main():
                     if snapshot.get('state') != 'NORMAL':
                         server_failed_snapshots += 1
                         failed_snapshots.append({
-                                                'name': server.get('name'),
-                                                'id': server.get('id'),
+                                                'server': server.get('name'),
+                                                'server_id': server.get('id'),
                                                 'snapshot': snapshot.get('id'),
                                                 'consistency': snapshot.get('consistencyLevel', 'N/A'),
                                                 'state': snapshot.get('state', 'N/A'),
@@ -155,6 +156,10 @@ def main():
             failed_servers.append({'name': server.get('name'), 'id': server.get('id'), 'error': e})
 
     try:
+        if not os.path.exists('reports'):
+            os.makedirs('reports')
+        if not os.path.exists('templates'):
+            module.fail_json('No templates directory found. Ensure you are in Collection directory before running')
         env = Environment(
             loader=FileSystemLoader('templates')
         )
@@ -174,6 +179,8 @@ def main():
         f = open('reports/{0}_server_report.csv'.format(datacenter), 'w')
         f.write(server_tmp.render(server_report=snapshot_report))
         f.close()
+    except OSError as e:
+        module.fail_json(msg='Could not create the reports directory: {0}'.format(e))
     except Exception as e:
         module.fail_json(msg='Could not template out the reports: {0}'.format(e))
 

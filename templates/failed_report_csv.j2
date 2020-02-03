@@ -1,0 +1,4 @@
+Server Name,Server ID,Snapshot ID,Replica,Creation Data (UTC),State,Consistency Level,Index State
+{% for entry in failed_report -%}
+{{entry.server}},{{entry.server_id}},{{entry.snapshot}},{{entry.replica}},{{entry.start}},{{entry.state}},{{entry.consistency}},{{entry.index}}
+{% endfor %}

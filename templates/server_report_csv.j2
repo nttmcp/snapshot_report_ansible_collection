@@ -1,0 +1,4 @@
+Server Name,Server ID,Replication,Total Snapshots,Failed Snapshots,Local System Snapshots,Replicated System Snapshots
+{% for entry in server_report -%}
+{{entry.name}},{{entry.id}},{{entry.replication}},{{entry.count}},{{entry.failed}},{{entry.local}},{{entry.remote}}
+{% endfor %}

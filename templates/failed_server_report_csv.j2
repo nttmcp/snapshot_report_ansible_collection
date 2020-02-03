@@ -1,0 +1,4 @@
+Server Name,Server ID
+{% for entry in failed_servers -%}
+{{entry.name}},{{entry.id}}
+{% endfor %}
